@@ -1,18 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';  
-import { NgModule } from '@angular/core';  
-  
-import { AppRoutingModule } from './app-routing.module';  
-import { AppComponent } from './app.component';  
-import { environment } from 'src/environments/environment';  
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';  
-import { AdaptableAngularAgGridModule } from '@adaptabletools/adaptable-angular-aggrid';  
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { environment } from 'src/environments/environment';
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
+import { AdaptableAngularAgGridModule } from '@adaptabletools/adaptable-angular-aggrid';
 import { AgGridModule } from '@ag-grid-community/angular';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule} from '@angular/material/sidenav'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -33,18 +37,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-@NgModule({  
-  declarations: [  
-    AppComponent, 
+@NgModule({
+  declarations: [
+    AppComponent,
     // UnauthorizedComponent, HomeComponent, DetailedViewComponent, AccessControlComponent
-  ],  
-  imports: [  
-    BrowserModule,  
-    AppRoutingModule,  
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
 
-
-    AdaptableAngularAgGridModule, 
+    AdaptableAngularAgGridModule,
     AgGridModule,
     MatToolbarModule,
     MatIconModule,
@@ -71,20 +74,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTableModule,
     MatProgressSpinnerModule,
     // FilterPaneModule,
-
-  ],  
-  providers: [  
-    HttpClient,  
+  ],
+  providers: [
+    HttpClient,
     /* 
     Switched to: DD-MM-YYYY.
       Default locale is 'en-US' : MM-DD-YYYY
       
       Applicable to all Ng Material fields for this module.
     */
-    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},  
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     // {provide: DateAdapter, useClass: InputDateAdapter, deps: [MAT_DATE_LOCALE, Platform]}
-
-  ],  
-  bootstrap: [AppComponent]  
-})  
-export class AppModule { } 
+  ],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
