@@ -24,6 +24,12 @@ export class AppComponent {
   adaptableOptions: AdaptableOptions;
   columnDefs: ColDef[] = [
     {
+      field: 'uniqueID',
+      hide: true,
+      suppressFiltersToolPanel: true,
+      suppressColumnsToolPanel: true,
+    },
+    {
       headerName: 'Position Id',
       field: 'positionId',
       hide: true,
@@ -57,8 +63,12 @@ export class AppComponent {
     {
       headerName: 'As Of Date ',
       field: 'asOfDate',
-      valueFormatter: dateFormatter,
-      cellClass: 'dateUK',
+      // obsolete, replaced with the FormatColumn
+      // valueFormatter: dateFormatter,
+
+      // obsolete, the Visual Export automagically derives&applies all row groups, formatted cells and anything style-related, provided they are specified in AdapTable (NOT in AG Grid).
+      // cellClass: 'dateUK',
+
       hide: true,
       type: 'abColDefDate',
     },
@@ -67,25 +77,25 @@ export class AppComponent {
       field: 'tradeDate',
       rowGroup: true,
       hide: true,
-      valueFormatter: dateFormatter,
-      cellClass: 'dateUK',
+      //valueFormatter: dateFormatter,
+      // cellClass: 'dateUK',
       type: 'abColDefDate',
     },
     { headerName: 'Type', field: 'typeDesc', type: 'abColDefString' },
     {
       headerName: 'Settle Date',
       field: 'settleDate',
-      valueFormatter: dateFormatter,
-      cellClass: 'dateUK',
+      // valueFormatter: dateFormatter,
+      // cellClass: 'dateUK',
       type: 'abColDefDate',
     },
     { headerName: 'Modified By', field: 'modifiedBy', type: 'abColDefString' },
     {
       headerName: 'Modified On',
       field: 'modifiedOn',
-      valueFormatter: dateTimeFormatter,
+      // valueFormatter: dateTimeFormatter,
       type: 'abColDefDate',
-      cellClass: 'dateUK',
+      // cellClass: 'dateUK',
     },
   ];
 
@@ -264,7 +274,9 @@ export class AppComponent {
       },
       rowGroupPanelShow: 'always',
       allowContextMenuWithControlKey: true,
-      excelStyles: CommonConfig.GENERAL_EXCEL_STYLES,
+      // no need for this verbose & error-prone configuring
+      // AdapTable will take care of this by taking over all existing AdapTable styles
+      // excelStyles: CommonConfig.GENERAL_EXCEL_STYLES,
     };
 
     this.adaptableOptions = {
@@ -399,6 +411,32 @@ export class AppComponent {
                   SortOrder: 'Desc',
                 },
               ],
+            },
+          ],
+        },
+        FormatColumn: {
+          FormatColumns: [
+            {
+              Scope: {
+                ColumnIds: ['asOfDate', 'tradeDate', 'settleDate'],
+              },
+              DisplayFormat: {
+                Formatter: 'DateFormatter',
+                Options: {
+                  Pattern: 'dd/MM/yyyy',
+                },
+              },
+            },
+            {
+              Scope: {
+                ColumnIds: ['modifiedOn'],
+              },
+              DisplayFormat: {
+                Formatter: 'DateFormatter',
+                Options: {
+                  Pattern: 'dd/MM/yyyy HH:mm',
+                },
+              },
             },
           ],
         },

@@ -1,6 +1,11 @@
 import { DecimalPipe } from '@angular/common';
 import * as moment from 'moment';
 
+const sanitiseInvalidDateValues = (value: any) => {
+  if (value === '0001-01-01T00:00:00') {
+  }
+};
+
 /**
  *
  * @param adaptableId AdaptableOptions.adaptableID

@@ -19,10 +19,12 @@ import { AdaptableModuleButtons } from '@adaptabletools/adaptable/src/Predefined
 export class CommonConfig {
   public static AG_GRID_LICENSE_KEY: string = ``;
 
-  public static ADAPTABLE_LICENSE_KEY: string = ``;
+  public static ADAPTABLE_LICENSE_KEY: string = `AppName=AdaptableDocs|Owner=Adaptable|StartDate=2022-09-16|EndDate=2023-09-16|Ref=AdaptableLicense|TS=1663326662738|C=899371264,761190096,1260976079,1369198515,4159390727,1839832928,1892324866`;
 
   public static GENERAL_EXPORT_OPTIONS: ExportOptions = {
-    exportDateFormat: 'yyyy/MM/dd',
+    // this is only necessary if we want/need a different date format than the one displayed in the UI
+    // by default it will use the 'formattedValue' of each specific column
+    // exportDateFormat: 'yyyy/MM/dd',
     exportFormatType: 'formattedValue',
   };
 
