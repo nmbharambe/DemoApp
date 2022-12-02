@@ -1,0 +1,127 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// @import "../node_modules/@ag-grid-community/all-modules/dist/styles/ag-grid.css";
+// @import "../node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-alpine.css";
+
+// @import "../node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-alpine-dark.css";
+
+@import url(../../ArkWebApp/node_modules/@ag-grid-community/styles/ag-grid.css);
+@import "../node_modules/@ag-grid-community/styles/ag-grid.css";
+@import "../node_modules/@ag-grid-community/styles/ag-theme-alpine.css";
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ArkWebApp-primary: mat.define-palette(mat.$blue-palette, 700);
+$ArkWebApp-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ArkWebApp-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ArkWebApp-theme: mat.define-light-theme((
+  color: (
+    primary: $ArkWebApp-primary,
+    accent: $ArkWebApp-accent,
+    warn: $ArkWebApp-warn,
+
+
+    // Add custom colors like above here.
+
+
+
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($ArkWebApp-theme);
+
+@import '~@adaptabletools/adaptable-angular-aggrid/index.css';
+@import '~@adaptabletools/adaptable-angular-aggrid/themes/dark.css';
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.mat-expansion-panel-body{
+  padding: 0px !important;
+}
+
+.mat-expansion-indicator::after{
+  color: #fff;
+}
+.mat-expansion-indicator{
+  color: #fff;
+}
+
+// Autocomplete panel in Capital Activity screen (add-capital-modal.component.html)
+// Defined here, since autocomplete panel is in the overlay.
+.capital-autocomplete-panel{
+  max-height: 150px !important;
+}
+
+.associate-button{
+    filter: invert(56%) sepia(74%) saturate(3986%) hue-rotate(87deg) brightness(124%) contrast(124%) !important;
+}
+
+// Capital Activity -> Link investor modal
+.link-tooltip{
+  font-size: 15px !important;
+}
+
+.tooltip-style {
+  font-size: 12px !important;
+}
+
+
+.ark-theme-snackbar-normal{
+  background-color: #0590ca;
+  color: rgb(17, 1, 1);
+  .mat-simple-snackbar-action{
+    color: black;
+  }
+}
+
+.ark-theme-snackbar-success{
+  background-color: rgb(33, 216, 16);
+  color: rgb(17, 1, 1);
+  .mat-simple-snackbar-action{
+    color: black;
+  }
+}
+
+.ark-theme-snackbar-warning{
+  background-color: rgb(233, 155, 11);
+  color: rgb(17, 1, 1);
+  .mat-simple-snackbar-action{
+    color: black;
+  }
+}
+.ark-theme-snackbar-error{
+  background-color: rgb(255, 49, 49);
+  color: rgb(17, 1, 1);
+  .mat-simple-snackbar-action{
+    color: black;
+    }
+}
+
+// Mat Progress spinner (Used in unauthorized component)
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #0590ca;
+}

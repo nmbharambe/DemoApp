@@ -1,0 +1,198 @@
+.mat-toolbar {
+    background: #fff;
+    color: #0590ca;
+    padding: 0;
+  }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .logo-img{
+    height: 48px;
+    width: 48px;
+    margin: 5px;
+  }
+  
+  .asset-grid{
+    padding-top: 25px;
+    padding-left: 25px;
+  }
+
+  .example-spacer{
+
+    margin-right: 5px;
+
+  }
+
+  .user-name{
+    margin-right: 20px;
+  }
+
+  .menu-icon{
+    background-color: #0590ca;
+    border: none;
+    color: #fff;
+    padding-top: 0px;
+    margin-left: 15px;
+  }
+
+  .button-row{
+    margin-bottom: 15px;
+  }
+
+  .btn-add-new{
+    border-radius: 5px;
+  }
+
+  mat-sidenav-container{
+    height: calc(100% - 64px);
+  }
+
+  .date-form-field{
+    padding: 10px 10px 0 15px;
+    margin-top: 10px;
+  }
+  
+  .title{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1e2a46;
+  }
+
+  .mat-card{
+    width: fit-content;
+  }
+  
+
+ mat-sidenav{
+background-color: #285170;
+width: 20%;
+min-width: 120px;
+  }
+
+ .right-sidenav{
+  background-color: #ffffff;
+  width: 285px;
+  top:30px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  color:#102439;
+  }
+
+
+  mat-expansion-panel{
+
+    background-color: #285170;
+    
+
+  }
+
+  .mat-expansion-panel-header{
+    padding: 0 15px;  //Text start position aligned with hamburger icon position on top
+  }
+
+  .mat-expansion-panel-header-title{
+
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    color: #fff !important;
+    font-size: 17px;
+  }
+
+.filter-btn-row{
+  position: absolute;
+  top:8px;
+  right:5px;
+  z-index: 1000;
+}
+
+.filter-btn{
+ cursor: pointer;
+ color: #0590ca;
+}
+
+.sidenav-right-heading{
+  padding: 10px;
+  border-bottom: 1px solid #285170;
+  font-weight: 600;
+}
+
+.right-cont{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-details{
+  padding: 15px;
+  cursor: pointer;
+}
+
+.user-name{
+  vertical-align: middle;
+}
+
+.user-icon{
+  vertical-align: middle;
+}
+
+.help-icon{
+  vertical-align: middle;
+  color: #0590ca;
+}
+
+.search-row{
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.form-input{
+  font-size: 14px;
+}
+
+::ng-deep .mat-datepicker-content .mat-calendar{
+  width: 90% !important;
+  height: 70% !important;
+}
+
+mat-list{
+  padding: 0;
+}
+
+.list-item-text{
+  margin-left: 10%;   //Sub header indentation
+}
+
+.filter-element{
+  padding: 10px;
+  width: 100%;
+}
+
+.filter-options{
+  display: flex;
+  justify-content: space-around;
+  width: 100% !important;
+  flex: 1;
+  min-width: 100% !important;  
+}
+
+/*
+    To remove extra bottom space from mat-form-field. By default, Ng material form fields puts some margin in the bottom for "consistent spacing". In order to remove this forced margin,
+    we supply -ve margin-bottom(i.e. -1.25em).
+
+    Reference: 
+          https://github.com/angular/components/issues/7975#issuecomment-359803149
+          https://stackoverflow.com/a/56514903/17121446
+*/
+.filter-options mat-form-field{
+  margin-bottom: -1.25em;
+  width: 90%;
+}
+
+#apply-button{
+  background: #0288D1;
+  color: #ffffff;
+}
