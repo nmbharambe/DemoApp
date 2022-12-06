@@ -338,7 +338,7 @@ export class AppComponent {
 
       predefinedConfig: {
         Dashboard: {
-          Revision: 1,
+          Revision: 2,
           ModuleButtons: CommonConfig.DASHBOARD_MODULE_BUTTONS,
           IsCollapsed: true,
           Tabs: [
@@ -350,6 +350,7 @@ export class AppComponent {
           DashboardTitle: ' ',
         },
         QuickSearch: {
+          Revision: 2,
           QuickSearchText: '',
           Style: {
             BackColor: '#ffff00',
@@ -358,7 +359,7 @@ export class AppComponent {
         },
 
         Layout: {
-          Revision: 4,
+          Revision: 5,
           CurrentLayout: 'Basic Portfolio History',
           Layouts: [
             {
@@ -415,6 +416,7 @@ export class AppComponent {
           ],
         },
         FormatColumn: {
+          Revision: 3,
           FormatColumns: [
             {
               Scope: {
@@ -426,6 +428,7 @@ export class AppComponent {
                   Pattern: 'dd/MM/yyyy',
                 },
               },
+              IncludeGroupedRows: true,
             },
             {
               Scope: {
@@ -437,6 +440,7 @@ export class AppComponent {
                   Pattern: 'dd/MM/yyyy HH:mm',
                 },
               },
+              IncludeGroupedRows: true,
             },
           ],
         },
