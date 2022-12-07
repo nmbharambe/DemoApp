@@ -1,13 +1,13 @@
 import { ActionColumnContext, AdaptableButton, AdaptableOptions } from '@adaptabletools/adaptable-angular-aggrid';
 import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
-import { Component } from '@angular/core';  
+import { Component } from '@angular/core';
 import { CommonConfig } from './configs/common-config';
 import { dateFormatter, dateTimeFormatter } from './shared/functions/formatter';
-@Component({  
-  selector: 'app-root',  
-  templateUrl: './app.component.html',  
-  styleUrls: ['../app/shared/styles/grid-page.layout.scss', './app.component.scss']  
-})  
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['../app/shared/styles/grid-page.layout.scss', './app.component.scss']
+})
 export class AppComponent {
 
   constructor(){}
@@ -17,6 +17,12 @@ export class AppComponent {
   gridOptions: GridOptions
   adaptableOptions: AdaptableOptions
   columnDefs: ColDef[] = [
+    {
+      field: 'uniqueID',
+      hide: true,
+      suppressFiltersToolPanel: true,
+      suppressColumnsToolPanel: true,
+    },
     { headerName: "Position Id", field: 'positionId',hide: true, type:'abColDefNumber' },
     { headerName: "Asset Id", field: 'assetId',hide: true, type:'abColDefNumber'},
     { headerName: "Issuer Short Name ",field: 'issuerShortName',enableValue: true, type:'abColDefString' },
@@ -24,12 +30,43 @@ export class AppComponent {
     { headerName: "Fund",field : 'fund', type:'abColDefString' },
     { headerName: "Fund Hedging", field: 'fundHedging', type:'abColDefString' },
     { headerName: "Fund Ccy",  field: 'fundCcy', type:'abColDefString' },
-    { headerName: "As Of Date ", field: 'asOfDate',  valueFormatter: dateFormatter, cellClass: 'dateUK' ,hide: true, type:'abColDefDate' },
-    { headerName: "Trade Date", field: 'tradeDate', rowGroup: true, hide: true, valueFormatter: dateFormatter, cellClass: 'dateUK' , type:'abColDefDate' },
+    {
+      headerName: 'As Of Date ',
+      field: 'asOfDate',
+      // obsolete, replaced with the FormatColumn
+      // valueFormatter: dateFormatter,
+
+      // obsolete, the Visual Export automagically derives&applies all row groups, formatted cells and anything style-related, provided they are specified in AdapTable (NOT in AG Grid).
+      // cellClass: 'dateUK',
+
+      hide: true,
+      type: 'abColDefDate',
+    },
+    {
+      headerName: 'Trade Date',
+      field: 'tradeDate',
+      rowGroup: true,
+      hide: true,
+      //valueFormatter: dateFormatter,
+      // cellClass: 'dateUK',
+      type: 'abColDefDate',
+    },
     { headerName: "Type", field : 'typeDesc', type:'abColDefString'},
-    { headerName: "Settle Date", field: 'settleDate',  valueFormatter: dateFormatter, cellClass: 'dateUK' , type:'abColDefDate' },
+    {
+      headerName: 'Settle Date',
+      field: 'settleDate',
+      // valueFormatter: dateFormatter,
+      // cellClass: 'dateUK',
+      type: 'abColDefDate',
+    },
     { headerName: "Modified By",  field: 'modifiedBy', type:'abColDefString'},
-    { headerName: "Modified On",  field: "modifiedOn", valueFormatter: dateTimeFormatter, type:'abColDefDate', cellClass: 'dateUK'}
+    {
+      headerName: 'Modified On',
+      field: 'modifiedOn',
+      // valueFormatter: dateTimeFormatter,
+      type: 'abColDefDate',
+      // cellClass: 'dateUK',
+    },
   ]
 
   ngOnInit(){
@@ -62,7 +99,9 @@ export class AppComponent {
       },
       rowGroupPanelShow: 'always',
       allowContextMenuWithControlKey: true,
-      excelStyles: CommonConfig.GENERAL_EXCEL_STYLES
+      // no need for this verbose & error-prone configuring
+      // AdapTable will take care of this by taking over all existing AdapTable styles
+      // excelStyles: CommonConfig.GENERAL_EXCEL_STYLES,
     };
 
     this.adaptableOptions ={
@@ -71,20 +110,20 @@ export class AppComponent {
       userName: `Sample User`,
       adaptableId: "Portfolio History",
       adaptableStateKey: `Portfolio State Key`,
-  
+
       exportOptions: CommonConfig.GENERAL_EXPORT_OPTIONS,
-  
-  
+
+
       layoutOptions: {
         autoSaveLayouts: true,
       },
-  
+
       // teamSharingOptions: {
       //   enableTeamSharing: true,
       //   setSharedEntities: setSharedEntities.bind(this),
       //   getSharedEntities: getSharedEntities.bind(this)
       // },
-  
+
       actionOptions:{
         actionColumns:[
           {
@@ -107,9 +146,9 @@ export class AppComponent {
         ]
       },
       generalOptions: {
-  
+
         /* Adaptable calls this on grid init */
-        /* Custom comparator for descending order */  
+        /* Custom comparator for descending order */
         customSortComparers: [
           {
             scope: {
@@ -121,20 +160,23 @@ export class AppComponent {
               else if(valueA < valueB)
                 return -1;
               else
-                return 0; 
+                return 0;
             }
           }
         ]
       },
-  
+
       predefinedConfig: {
         Dashboard: {
-          Revision: 1,
+          Revision: 10,
           ModuleButtons: CommonConfig.DASHBOARD_MODULE_BUTTONS,
           IsCollapsed: true,
           Tabs: [{
             Name:'Layout',
             Toolbars: ['Layout'],
+          },{
+            Name:'Export',
+            Toolbars: ['Export'],
           }],
           DashboardTitle: ' '
         },
@@ -144,11 +186,17 @@ export class AppComponent {
             BackColor: '#ffff00',
             ForeColor: '#808080',
           },
-        
+
         },
-      
+
+        Export:{
+          Revision: 10,
+          CurrentReport: 'Visual Data',
+          CurrentDestination: 'Excel'
+        },
+
         Layout:{
-          Revision: 4,
+          Revision: 40,
           CurrentLayout: 'Basic Portfolio History',
           Layouts: [{
             Name: 'Basic Portfolio History',
@@ -193,7 +241,7 @@ export class AppComponent {
             //     PredicateId: 'Values',
             //     Inputs: ['Borrowing', 'Buy Trade']
             //   }
-            // }],        
+            // }],
             ColumnSorts: [
               {
                 ColumnId: 'tradeDate',
@@ -201,9 +249,39 @@ export class AppComponent {
               },
             ],
           }]
-        }  
+        },
+
+        FormatColumn: {
+          Revision: 30,
+          FormatColumns: [
+            {
+              Scope: {
+                ColumnIds: ['asOfDate', 'tradeDate', 'settleDate'],
+              },
+              DisplayFormat: {
+                Formatter: 'DateFormatter',
+                Options: {
+                  Pattern: 'dd/MM/yyyy',
+                },
+              },
+              IncludeGroupedRows: true,
+            },
+            {
+              Scope: {
+                ColumnIds: ['modifiedOn'],
+              },
+              DisplayFormat: {
+                Formatter: 'DateFormatter',
+                Options: {
+                  Pattern: 'dd/MM/yyyy HH:mm',
+                },
+              },
+              IncludeGroupedRows: true,
+            },
+          ],
+        },
       }
     }
-  
+
   }
 }
