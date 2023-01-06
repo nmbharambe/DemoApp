@@ -312,7 +312,11 @@ export class AppComponent {
             CUSTOM_FORMATTER(['Rate'],['percentFormatter']),
             {
               Scope: {
-                ColumnIds: ['asOfDate',  'settleDate'],
+                /*
+                NOTE:   'settleDate' is of type "dd/MM/yyyy" string and not in ISO string date format as the underlying value. So, no formatter as such is supplied for it. The same underlying value is displayed correctly on the group on UI. We were expecting the same value would be exported directly if no formattor is supplied. 
+
+                */
+                ColumnIds: ['asOfDate',  'settleDate'],     
               },
               DisplayFormat: {
                 Formatter: 'DateFormatter',
