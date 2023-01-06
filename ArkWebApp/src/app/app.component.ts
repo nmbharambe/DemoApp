@@ -2,7 +2,7 @@ import { ActionColumnContext, AdaptableButton, AdaptableOptions, CustomDisplayFo
 import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
 import { Component } from '@angular/core';
 import { CommonConfig } from './configs/common-config';
-import { dateFormatter, dateTimeFormatter } from './shared/functions/formatter';
+import { BLANK_DATETIME_FORMATTER_CONFIG, CUSTOM_DISPLAY_FORMATTERS_CONFIG, CUSTOM_FORMATTER, dateFormatter, dateTimeFormatter, DATETIME_FORMATTER_CONFIG_ddMMyyyy_HHmm } from './shared/functions/formatter';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -68,6 +68,11 @@ export class AppComponent {
       type: 'abColDefDate',
       // cellClass: 'dateUK',
     },
+    {
+      headerName: 'Rate',
+      field: 'Rate',
+      type: 'abColDefNumber',
+    },
   ]
 
 
@@ -75,10 +80,11 @@ export class AppComponent {
 
   ngOnInit(){
     this.rowData = [
-      {"uniqueID":1,"positionId":971,"assetId":111,"asset":"Some tranche","issuerShortName":"Some Complémentaires","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"01/06/2021","settleDate":"2014-11-25T00:00:00","positionCcy":"INR","amount":1233333.32,"parAmount":4000000,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":4000000,"fundedParAmountLocal":4000000,"costAmountLocal":4000000,"fundedCostAmountLocal":4000000,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Buy Trade","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false},
-      {"uniqueID":2,"positionId":971,"assetId":111,"asset":"Some tranche","issuerShortName":"Some Issuer","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"24/05/2022","settleDate":"2016-05-24T00:00:00","positionCcy":"INR","amount":123.3215422395,"parAmount":-154223.95,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":-154223.95,"fundedParAmountLocal":-154223.95,"costAmountLocal":-154223.95,"fundedCostAmountLocal":-154223.95,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Paydown","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false},
-      {"uniqueID":3,"positionId":971,"assetId":111,"asset":"Some tranche","issuerShortName":"Some Issuer","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"22/12/2016","settleDate":"2016-07-02T00:00:00","positionCcy":"INR","amount":0,"parAmount":-3845776.05,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":-3845776.05,"fundedParAmountLocal":-3845776.05,"costAmountLocal":-3845776.05,"fundedCostAmountLocal":-3845776.05,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Paydown","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false},
-      {"uniqueID":4,"positionId":976,"assetId":110,"asset":"UNITRANCHE","issuerShortName":"RMRFBIDCO","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"02/11/2014","settleDate":"2014-11-25T00:00:00","positionCcy":"INR","amount":0.000000323,"parAmount":5000000,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":5000000,"fundedParAmountLocal":5000000,"costAmountLocal":5000000,"fundedCostAmountLocal":5000000,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Buy Trade","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false},{"uniqueID":5,"positionId":976,"assetId":110,"asset":"UNITRANCHE","issuerShortName":"RMRFBIDCO","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"05/05/2016","settleDate":"2015-01-16T00:00:00","positionCcy":"INR","amount":123.325000000,"parAmount":-5000000,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":-5000000,"fundedParAmountLocal":-5000000,"costAmountLocal":-5000000,"fundedCostAmountLocal":-5000000,"modifiedBy":null,"modifiedOn":"2021-12-21T00:00:00","typeDesc":"Paydown","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false}]
+      {"uniqueID":1,"positionId":971,"assetId":111,"asset":"Some tranche","issuerShortName":"Some Complémentaires","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"01/06/2021","settleDate":"2014-11-25T00:00:00","positionCcy":"INR","amount":1233333.32,"parAmount":4000000,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":4000000,"fundedParAmountLocal":4000000,"costAmountLocal":4000000,"fundedCostAmountLocal":4000000,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Buy Trade","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false,"Rate":0.23},
+      {"uniqueID":2,"positionId":971,"assetId":111,"asset":"Some tranche","issuerShortName":"Some Issuer","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"24/05/2022","settleDate":"2016-05-24T00:00:00","positionCcy":"INR","amount":123.3215422395,"parAmount":-154223.95,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":-154223.95,"fundedParAmountLocal":-154223.95,"costAmountLocal":-154223.95,"fundedCostAmountLocal":-154223.95,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Paydown","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false,"Rate":0.23},
+      {"uniqueID":3,"positionId":971,"assetId":111,"asset":"Some tranche","issuerShortName":"Some Issuer","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"22/12/2016","settleDate":"2016-07-02T00:00:00","positionCcy":"INR","amount":0,"parAmount":-3845776.05,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":-3845776.05,"fundedParAmountLocal":-3845776.05,"costAmountLocal":-3845776.05,"fundedCostAmountLocal":-3845776.05,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Paydown","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false,"Rate":0.23},
+      {"uniqueID":4,"positionId":976,"assetId":110,"asset":"UNITRANCHE","issuerShortName":"RMRFBIDCO","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"02/11/2014","settleDate":"2014-11-25T00:00:00","positionCcy":"INR","amount":0.000000323,"parAmount":5000000,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":5000000,"fundedParAmountLocal":5000000,"costAmountLocal":5000000,"fundedCostAmountLocal":5000000,"modifiedBy":null,"modifiedOn":"0001-01-01T00:00:00","typeDesc":"Buy Trade","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false,"Rate":0.43},
+      {"uniqueID":5,"positionId":976,"assetId":110,"asset":"UNITRANCHE","issuerShortName":"RMRFBIDCO","fund":"DL-ABC-XYZ","fundHedging":"DL-ABC-XYZ","fundCcy":"SLR","asOfDate":"2022-10-20T00:00:00","tradeDate":"05/05/2016","settleDate":"2015-01-16T00:00:00","positionCcy":"INR","amount":123.325000000,"parAmount":-5000000,"pgh_FXRateBaseEffective":1.26058894715611,"fxRateBaseEffective":0,"parAmountLocal":-5000000,"fundedParAmountLocal":-5000000,"costAmountLocal":-5000000,"fundedCostAmountLocal":-5000000,"modifiedBy":null,"modifiedOn":"2021-12-21T00:00:00","typeDesc":"Paydown","isEdited":false,"girSourceID":0,"girSource":null,"isOverride":false,"Rate":0.00}]
 
 
     this.gridOptions = {
@@ -176,6 +182,7 @@ export class AppComponent {
 
       userInterfaceOptions:{
         customDisplayFormatters:[
+          CUSTOM_DISPLAY_FORMATTERS_CONFIG('percentFormatter',['Rate']),
           {
             scope:{
               ColumnIds:['amount']
@@ -238,7 +245,7 @@ export class AppComponent {
         },
 
         Layout:{
-          Revision: 41,
+          Revision: 42,
           CurrentLayout: 'Basic Portfolio History',
           Layouts: [{
             Name: 'Basic Portfolio History',
@@ -268,6 +275,7 @@ export class AppComponent {
               'girSourceID',
               'actionNew',
               'ActionDelete',
+              'Rate'
             ],
             PinnedColumnsMap: {
               actionNew: 'right',
@@ -297,8 +305,11 @@ export class AppComponent {
         },
 
         FormatColumn: {
-          Revision: 36,
+          Revision: 38,
           FormatColumns: [
+            BLANK_DATETIME_FORMATTER_CONFIG(['modifiedOn']),
+            DATETIME_FORMATTER_CONFIG_ddMMyyyy_HHmm(['modifiedOn']),
+            CUSTOM_FORMATTER(['Rate'],['percentFormatter']),
             {
               Scope: {
                 ColumnIds: ['asOfDate',  'settleDate'],
@@ -311,18 +322,7 @@ export class AppComponent {
               },
               IncludeGroupedRows: true,
             },
-            {
-              Scope: {
-                ColumnIds: ['modifiedOn'],
-              },
-              DisplayFormat: {
-                Formatter: 'DateFormatter',
-                Options: {
-                  Pattern: 'dd/MM/yyyy HH:mm',
-                },
-              },
-              IncludeGroupedRows: true,
-            },
+
             {
               Scope: {
                 ColumnIds: ['amount'],

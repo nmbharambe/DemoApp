@@ -1,3 +1,4 @@
+import { CustomDisplayFormatter, CustomDisplayFormatterContext, FormatColumn } from '@adaptabletools/adaptable-angular-aggrid';
 import { ValueFormatterParams } from '@ag-grid-community/core';
 import * as moment from 'moment';
 
@@ -111,4 +112,96 @@ export function percentFormatter(params : ValueFormatterParams) {
     else{
       return `${Number(params.value * 100).toFixed(2)}%`
     }
+}
+export function DATETIME_FORMATTER_CONFIG_ddMMyyyy_HHmm(dateTimeFields: string[], format: string = 'dd/MM/yyyy HH:mm', IncludeGroupedRows: boolean = true){
+    let formatCol: FormatColumn = {        
+        Scope: {
+            ColumnIds: dateTimeFields,
+        },
+        DisplayFormat: {
+            Formatter: 'DateFormatter',
+            Options: {
+                Pattern: format,
+            },
+        },
+        IncludeGroupedRows: IncludeGroupedRows
+    }
+    return formatCol;
+}
+export function BLANK_DATETIME_FORMATTER_CONFIG(dateFields: string[], IncludeGroupedRows: boolean = true){   
+    let formatCol: FormatColumn = {
+        Scope: {
+          ColumnIds: dateFields
+        }, 
+        Rule: {
+          Predicates: [{
+            PredicateId: 'Before',
+            Inputs: ['1753-01-01T00:00:00']
+          }]
+        },
+        DisplayFormat:{
+          Formatter: 'DateFormatter',
+          Options: {
+            Pattern: ' '
+          }
+        },
+        IncludeGroupedRows: IncludeGroupedRows
+    }
+    return formatCol;
+}
+
+export function CUSTOM_DISPLAY_FORMATTERS_CONFIG(id,columnIds:any[]=[]){
+    let handlerFunc
+    if(id === 'amountZeroFormat'){
+        handlerFunc = (customDisplayFormatterContext: CustomDisplayFormatterContext) =>{
+          const currentvalue: any = customDisplayFormatterContext.cellValue;
+
+          return Math.round(currentvalue) == 0 ? '-' : currentvalue;
+        }
+    }else if(id==='percentFormatter'){
+        handlerFunc =(customDisplayFormatterContext: CustomDisplayFormatterContext)=>{
+            let curretValue: any = customDisplayFormatterContext.cellValue
+            if(customDisplayFormatterContext.rowNode.group)
+                return " "
+            else{
+                return `${Number(curretValue * 100).toFixed(2)}%`
+            }
+        }
+    }
+
+    let scope
+    if(columnIds.length===0){
+        scope = {
+            All:true
+        }
+    }else{
+        scope ={
+            columnIds:columnIds
+        }
+    }
+
+    return <CustomDisplayFormatter>{
+        id: id,
+        label: id,
+        scope:scope,
+        handler: handlerFunc
+        }
+}
+
+
+
+export function CUSTOM_FORMATTER(fields:string[],customFormatters,align:string='Right',formatter:string='NumberFormatter'){
+    return <FormatColumn>{
+        Scope: {
+            ColumnIds: fields
+        }, 
+        DisplayFormat: {
+            Formatter:formatter,
+            Options: {
+                CustomDisplayFormats: customFormatters
+            }
+        },
+        IncludeGroupedRows:true,
+        CellAlignment: align
+    }  
 }
