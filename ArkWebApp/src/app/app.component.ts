@@ -1,5 +1,5 @@
 import { ActionColumnContext, AdaptableButton, AdaptableOptions, CustomDisplayFormatterContext } from '@adaptabletools/adaptable-angular-aggrid';
-import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
+import {ColDef, GridOptions, Module, ValueGetterParams} from '@ag-grid-community/core';
 import { Component } from '@angular/core';
 import { CommonConfig } from './configs/common-config';
 import { BLANK_DATETIME_FORMATTER_CONFIG, CUSTOM_DISPLAY_FORMATTERS_CONFIG, CUSTOM_FORMATTER, dateFormatter, dateTimeFormatter, DATETIME_FORMATTER_CONFIG_ddMMyyyy_HHmm } from './shared/functions/formatter';
@@ -63,9 +63,16 @@ export class AppComponent {
     { headerName: "Modified By",  field: 'modifiedBy', type:'abColDefString'},
     {
       headerName: 'Modified On',
-      field: 'modifiedOn',
+      // field: 'modifiedOn',
       // valueFormatter: dateTimeFormatter,
       type: 'abColDefDate',
+      valueGetter:(params:ValueGetterParams)=>{
+        const rawValue = params.data?.modifiedOn;
+        if (rawValue === '0001-01-01T00:00:00') {
+          return null;
+        }
+        return rawValue
+      }
       // cellClass: 'dateUK',
     },
     {
@@ -202,7 +209,7 @@ export class AppComponent {
                       return Number(currentValue).toLocaleString(undefined, {     // Show 2 trailing digits if non integer
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
-                      });    
+                      });
                   }
               }
               else if(Number(Number(currentValue).toFixed(2))==0) {
@@ -313,10 +320,10 @@ export class AppComponent {
             {
               Scope: {
                 /*
-                NOTE:   'settleDate' is of type "dd/MM/yyyy" string and not in ISO string date format as the underlying value. So, no formatter as such is supplied for it. The same underlying value is displayed correctly on the group on UI. We were expecting the same value would be exported directly if no formattor is supplied. 
+                NOTE:   'settleDate' is of type "dd/MM/yyyy" string and not in ISO string date format as the underlying value. So, no formatter as such is supplied for it. The same underlying value is displayed correctly on the group on UI. We were expecting the same value would be exported directly if no formattor is supplied.
 
                 */
-                ColumnIds: ['asOfDate',  'settleDate'],     
+                ColumnIds: ['asOfDate',  'settleDate'],
               },
               DisplayFormat: {
                 Formatter: 'DateFormatter',
