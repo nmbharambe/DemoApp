@@ -1,5 +1,5 @@
 import { ActionColumnContext, AdaptableButton, AdaptableOptions, CustomDisplayFormatterContext } from '@adaptabletools/adaptable-angular-aggrid';
-import { ColDef, GridOptions, Module } from '@ag-grid-community/core';
+import { ColDef, GridOptions, Module, ValueGetterParams } from '@ag-grid-community/core';
 import { Component } from '@angular/core';
 import { CommonConfig } from './configs/common-config';
 import { BLANK_DATETIME_FORMATTER_CONFIG, CUSTOM_DISPLAY_FORMATTERS_CONFIG, CUSTOM_FORMATTER, dateFormatter, dateTimeFormatter, DATETIME_FORMATTER_CONFIG_ddMMyyyy_HHmm } from './shared/functions/formatter';
@@ -64,7 +64,13 @@ export class AppComponent {
     {
       headerName: 'Modified On',
       field: 'modifiedOn',
-      // valueFormatter: dateTimeFormatter,
+      valueGetter:(params:ValueGetterParams)=>{
+        const rawValue = params.data?.modifiedOn;
+        if (rawValue === '0001-01-01T00:00:00') {
+          return null;
+        }
+        return rawValue
+      },
       type: 'abColDefDate',
       // cellClass: 'dateUK',
     },
@@ -245,7 +251,7 @@ export class AppComponent {
         },
 
         Layout:{
-          Revision: 42,
+          Revision: 43,
           CurrentLayout: 'Basic Portfolio History',
           Layouts: [{
             Name: 'Basic Portfolio History',
@@ -281,7 +287,6 @@ export class AppComponent {
               actionNew: 'right',
               ActionDelete: 'right',
             },
-            RowGroupedColumns: ['tradeDate', 'fundCcy', 'positionCcy'],
             ColumnWidthMap:{
               ActionDelete: 50,
             },
