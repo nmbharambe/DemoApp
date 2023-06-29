@@ -11,6 +11,7 @@ import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
 import { SetFilterModule } from "@ag-grid-enterprise/set-filter";
 import { SideBarModule } from "@ag-grid-enterprise/side-bar";
 import { AdaptableModuleButtons } from "@adaptabletools/adaptable/src/PredefinedConfig/Common/Types";
+import { CsvExportModule } from "@ag-grid-community/csv-export";
 
 export class CommonConfig{
 
@@ -39,6 +40,7 @@ export class CommonConfig{
         ColumnsToolPanelModule,
         MenuModule,
         ExcelExportModule,
+        CsvExportModule,
         FiltersToolPanelModule,
         ClipboardModule,
         SideBarModule,
@@ -46,5 +48,7 @@ export class CommonConfig{
         RowGroupingModule
       ];
 
-    public static DASHBOARD_MODULE_BUTTONS: AdaptableModuleButtons = ['SettingsPanel', 'TeamSharing', 'Export', 'Layout', 'ConditionalStyle', 'Filter']
+    // public static DASHBOARD_MODULE_BUTTONS: AdaptableModuleButtons = ['SettingsPanel', 'TeamSharing', 'Export','StyledColumn', 'Layout', 'Filter']
+
+    public static DASHBOARD_MODULE_BUTTONS: AdaptableModuleButtons = ['SettingsPanel', 'TeamSharing', 'Export', 'Layout', 'Filter']
 }
